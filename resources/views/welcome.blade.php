@@ -172,20 +172,19 @@ About the event
 <div class="row justify-content-center">
 <div class="col-12 col-md-6">
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing eli. Integer iaculis in lacus a sollicitudin.
-Ut hendrerit hendrerit nisl a accumsan. Pellentesque convallis consectetur tortor id placerat.
-Curabitur a pulvinar nunc. Maecenas laoreet finibus lectus, at volutpat ligula euismod.
+@include('includes.video1')
 </p>
 </div>
 <div class="col-12 col-md-6">
 <p>
-In rhoncus massa nec sollicitudin. Ut hendrerit hendrerit nisl a accumsan. Pellentesque
-convallis consectetur tortor id placerat. Curabitur a pulvinar nunc. Maecenas laoreet finibus
-lectus, at volutpat ligula euismod quis. Maecenas ornare, ex in malesuada tempus.
+    @include('includes.video2')
 </p>
 </div>
 </div>
-
+<center>
+    <div><a href="{{ route('watch') }}" class="btn btn-primary btn-rounded">Watch More videos</a></div><br><br>
+    
+    </center>
 <!--event features-->
 <div class="row justify-content-center mt30">
 <div class="col-12 col-md-6 col-lg-3">

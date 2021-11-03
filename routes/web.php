@@ -39,7 +39,8 @@ Route::get('/callback/{service}', 'SocialController@callback');
 
 // --------------Route Public
 Route::get('/', 'HomeController@index')->name('welcome');
-Route::get('/speaker', 'HomeController@speaker')->name('speaker');
+Route::get('/SomeVideoOfEvents', 'ViewerController@getvedios')->name('watch');
+Route::get('/speaker', 'HomeController@speaker')->name('speaker');  
 Route::get('/Contact',"HomeController@contact")->name('contact');
 Route::post('/Contactsend',"HomeController@store")->name('contactsend');
 

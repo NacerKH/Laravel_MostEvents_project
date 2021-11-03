@@ -33,7 +33,7 @@ class UserValidation extends FormRequest
             // 'password' => 'required|string|min:8|confirmed',
         ];
     }
-    
+    // //multilanguage
     public function messages()
     {
 
