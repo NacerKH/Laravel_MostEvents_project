@@ -27,8 +27,8 @@
                 @enderror
             </div>
             <div class="col">
-                <input class="form-control @error('namee') is-invalid @enderror" name="namee" type="text" placeholder="name CreatorEvents" value="{{auth()->user()->lastname}}">
-                @error('namee')
+                <input class="form-control @error('name') is-invalid @enderror" name="namee" type="text" placeholder="name CreatorEvents" value="{{auth()->user()->lastname}}">
+                @error('name')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

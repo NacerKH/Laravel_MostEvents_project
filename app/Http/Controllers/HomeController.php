@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 
 
 use App\Models\Oner;
@@ -21,7 +22,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-       // $this->middleware('auth');
+        // $this->middleware('auth');
+        // $this->middleware('verified');
     }
 
     /**
@@ -31,6 +33,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+        
+        return view('welcome');
+    }
+    public function pagehome()
+    {
         if(!empty(auth()->user()->id) ){
             $list = Oner::where('active',true)->inRandomOrder()->paginate(5);
             $listc = Cevent::where('active',true)->inRandomOrder()->paginate(5);
@@ -38,7 +45,7 @@ class HomeController extends Controller
           
        return view('app.home',compact('list','listc','liste'));
         }  
-        return view('welcome');
+        
     }
   
     public function Contact()
@@ -50,10 +57,12 @@ class HomeController extends Controller
         
         return view('speaker');
     }
-    public function pay()
-    {
+    public function pay($id)
+      
+    {  
+        $user=User::where('id',$id)->first();
         
-        return view('payment');
+        return view('payment',compact('user'));
     }
     public function store()
     { 
@@ -69,6 +78,7 @@ class HomeController extends Controller
 
      return  redirect()->back()->with('success', 'Votre email a été envoyer avec succees!');
     }
+    
     public function search(){
 
         request()->validate([

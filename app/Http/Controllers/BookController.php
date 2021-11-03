@@ -10,6 +10,7 @@ use App\Models\Cevent;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\BookValidation;
 
 
 class BookController extends Controller
@@ -40,14 +41,14 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookValidation $request)
     {
-        $request->validate([
-            'nb_person' => "required|integer",
-            'date' => "required|after_or_equal:date",
-           'from' => "nullable|before:to",
-            'to' => "nullable|after:from"
-        ]);
+        // $request->validate([
+        //     'nb_person' => "required|integer",
+        //     'date' => "required|after_or_equal:date",
+        //    'from' => "nullable|before:to",
+        //     'to' => "nullable|after:from"
+        // ]);
             $booking = new Book();
             $booking->oner_id = auth()->id();
             $booking->user_id = $request->user_id;
@@ -59,7 +60,7 @@ class BookController extends Controller
             
             $booking->save();
       
-            return redirect()->back();
+            return redirect()->back()->with('message','Reservation successfully sended');
 
     }
     
@@ -81,7 +82,7 @@ class BookController extends Controller
         /* Notification::route('mail',$reservation->email )
             ->notify(new ReservationConfirmed()); */
         //Toastr::success('Reservation successfully confirmed.','Success',["positionClass" => "toast-top-right"]);
-        return redirect()->back();
+        return redirect()->back()->with('message','Reservation successfully confirmed');
     }
 
     /**
@@ -118,6 +119,6 @@ class BookController extends Controller
         $oner_id = auth()->user()->oner()->id;
         $booking = Book::find($id);
         $booking->delete();
-        return redirect()->route('oner.show',$oner_id);
+        return redirect()->route('oner.show',$oner_id)->with('message','Reservation deleted Successfully');;
     }
 }

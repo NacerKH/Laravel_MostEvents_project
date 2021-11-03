@@ -9,6 +9,9 @@ use App\Models\Cevent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Http\Requests\BooktickectValidation;
+
+
 
 class BookingtController extends Controller
 {
@@ -38,14 +41,14 @@ class BookingtController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BooktickectValidation $request)
     {  
         
         //dd($request->all());
-        $request->validate([
-        'nb_ticket' => "required|integer",
+        // $request->validate([
+        // 'nb_ticket' => "required|integer",
         
-                         ]);
+        //                  ]);
             $bookingt = new Bookt();
             $bookingt->user_id = auth()->id();
             $bookingt->cevent_id = $request->cevent_id;
@@ -63,7 +66,7 @@ class BookingtController extends Controller
             $bookingt->total =$totall;
             $bookingt->save();
       
-       return redirect()->back();
+       return redirect()->back()->with('message','Reservation sended Successfully');;
 
     }
 
@@ -106,7 +109,7 @@ class BookingtController extends Controller
         $bookt->validate = 1;
         $bookt->save();
        
-        return redirect()->back();
+        return redirect()->back()->with('info','Reservation confirmed');
     }
     
 
@@ -121,6 +124,6 @@ class BookingtController extends Controller
         $cevent_id = auth()->user()->id;
         $booking = Bookt::find($id);
         $booking->delete();
-        return redirect()->back();
+        return redirect()->back()->with('warning','Reservation was Deleted succesfully');
     }
 }

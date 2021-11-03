@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Storage;
+use App\Http\Requests\UserValidation;
 
 
 class ClientController extends Controller
@@ -81,20 +82,21 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserValidation $request, $id)
     
         {
         
             $user= User::find($id);
             if(!empty($user->id)){
                 
-                $request->validate([
-                    
-                    'email' => "required|email|min:5|max:100|unique:users,id,".$user->id,
-                    'phone' => "required|numeric|min:7",
-                    'adress' => "required",
-                    'avatar' => "nullable|mimes:jpg,jpeg,png|image|max:2048"
-                ]);
+                // $request->validate([
+                //     'firstname' => 'required', 'string', 'min:8','max:255',
+                //     'lastname' => 'required', 'string','min:8', 'max:255',
+                //     'email' => "required|email|min:5|max:100|unique:users,id,".$user->id,
+                //     'phone' => "required|numeric|min:7",
+                //     'adress' => "required",
+                //     'avatar' => "nullable|mimes:jpg,jpeg,png|image|max:2048"
+                // ]);
                 if(!empty($request->file('avatar'))){
                     $path = Storage::putFile('public',$request->file('avatar'));
                     $url = Storage::url($path);
@@ -108,7 +110,7 @@ class ClientController extends Controller
                 $user->save();
             }
           
-            return redirect()->back();
+            return redirect()->back()->with('message','Data added Successfully');;
         }
     
 

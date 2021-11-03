@@ -20,11 +20,11 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('role');//cevent,client,admin,oner
-            $table->integer('phone')->nullable();
+            $table->integer('phone')->unique();
             $table->string('adress')->nullable();
             $table->boolean('gender');
             $table->string('avatar')->default('');
-
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
             

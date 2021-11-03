@@ -57,7 +57,7 @@
                                 
                                 <td>
                                 @if ($bookt->validate == 1)
-                                <a class="btn btn-primary" href="{{route('pay')}}" role="button">LastStep</a>
+                                <a class="btn btn-primary" href="{{route('pay',[ $bookt->user_id ])}}" role="button">LastStep</a>
                                 @else
                                 <span class='badge badge-pill badge-danger'>Wait Confirmation</span>
                                 @endif

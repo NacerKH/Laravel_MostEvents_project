@@ -30,7 +30,7 @@ class RegisterOnerController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';//RouteServiceProvider::HOME;
+    protected $redirectTo = '/home';//RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -49,15 +49,9 @@ class RegisterOnerController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'firstname' => ['required', 'string', 'max:255'],
-            'lastname' => ['required', 'string', 'max:255'],
-            'onername' => ['required', 'max:255'],
-            'phone' => ['required', 'min:8'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+    {       $rules=$this->getRules();
+            // dd($rules);
+            return Validator::make($data, $rules);
     }
     public function showRegistrationForm(){
 
@@ -90,5 +84,15 @@ class RegisterOnerController extends Controller
         ]);
        
         return $user; 
+    }
+    public function getRules(){
+        return $rules = [
+            'firstname' => ['required', 'string', 'min:8','max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
+            'onername' => ['required', 'max:255'],
+            'phone' => ['required', 'digits:8', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ];
     }
 }

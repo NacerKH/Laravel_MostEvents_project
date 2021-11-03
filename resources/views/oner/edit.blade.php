@@ -1,6 +1,7 @@
 @extends ('Layouts.template')
 @section ('content')
-<div class="container">
+<br><br><br><br><br>
+<div class="container mt-5">
 <form action="{{ route('oner.update',$oner->id) }}" method="POST" enctype="multipart/form-data" class="row">
 
 @csrf

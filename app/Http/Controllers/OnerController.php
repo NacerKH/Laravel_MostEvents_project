@@ -7,7 +7,7 @@ use Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\OwnerValidation;
 class OnerController extends Controller
 {
     /**
@@ -75,19 +75,19 @@ class OnerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(OwnerValidation $request, $id)
     {
       
         $oner= Oner::find($id);
         if(!empty($oner->id)){
             
-            $request->validate([
-                'name' => "required|string|min:5|max:100",
-                'email' => "required|email|min:5|max:100|unique:oners,id,".$oner->id,
-                'phone' => "required|numeric|min:7",
-                'adress' => "required",
-                'logo' => "nullable|mimes:jpg,jpeg,png|image|max:2048"
-            ]);
+            // $request->validate([
+            //     'name' => "required|string|min:5|max:100",
+            //     'email' => "required|email|min:5|max:100|unique:users,id,".$oner->id,
+            //     'phone' => "required|numeric|min:7",
+            //     'adress' => "required",
+            //     'logo' => "nullable|mimes:jpg,jpeg,png|image|max:2048"
+            // ]);
             if(!empty($request->file('logo'))){
                 $path = Storage::putFile('public',$request->file('logo'));
                 $url = Storage::url($path);
@@ -104,7 +104,7 @@ class OnerController extends Controller
             $user->save();
         }
       
-        return redirect()->back();
+        return redirect()->back()->with('message','Data Update Successfully');
    
     }
 

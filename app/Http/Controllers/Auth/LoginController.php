@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class LoginController extends Controller
@@ -36,16 +37,21 @@ class LoginController extends Controller
         if(auth()->user()->isAdmin() ){
             return '/admin/';
         }
-        return '/';
+        return '/home';
     }
 
     public function login(\Illuminate\Http\Request $request)
-    {  
-       
-        $user = User::where('email',$request->email)->first();
- 
+        
+    { 
+     
+        
+        
+        
+        $user = User::where('email',$request->identify)->OrWhere('phone',$request->identify)->first();
+    //   dd($user);
+  
         if( $user === null ){
-            return redirect()->back()->with('error','Inscrire');
+            return redirect()->back()->with('error','Inscrire, check your email or your phone Number');
         }
         if( $user->role === "oner" && $user->oner()->active == 0){
             return redirect()->back()->with('error','Contacter l\'administrateur pour activer votre compte');
@@ -87,4 +93,18 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    public function username(){
+        
+        $value =request()->input('identify');
+        // dd($value);
+         $field= filter_var($value, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone' ;
+         request()->merge([$field => $value]) ;
+         return $field;
+
+
+
+
+    }
+
+
 }

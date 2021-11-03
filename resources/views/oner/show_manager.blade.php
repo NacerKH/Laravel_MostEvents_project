@@ -7,7 +7,7 @@
         <div class="col-3 px-5 pt-2">
             <img src="{{$oner->logo()}}" class="w-100">
         </div>
-        <div class="col-9 pt-5">
+        <div class="col-9 pt-5 mt-5">
             <div class="float-right">
                 <a href="{{route('oner.edit',$oner->id)}}" class="btn btn-light">
                     <i class="fas fa-cog mr-2"></i>edit

@@ -69,7 +69,7 @@
                     <div class="form-group">
                         <label for="date">date</label>
 
-                        <input type="date" name="date" class="form-control @error('date') is-invalid @enderror">
+                        <input type="date" name="date" class="form-control @error('date') is-invalid @enderror" value="{{ old('date') }}">
                         @error('date')
                         <span class="invalid-feedback @error('from') is-invalid @enderror" role="alert">
                             <strong>{{ $message }}</strong>

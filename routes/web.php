@@ -19,7 +19,11 @@ use App\Mail\Contact;
 */
 
 
-Auth::routes();
+Auth::routes(['verify'=>true]);
+// -----------------Route for auth
+Route::group(['prefix' => LaravelLocalization::setLocale(), 
+'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+], function(){
 Route::get('login','Auth\LoginController@showLoginForm')->name('login');
 Route::post('login','Auth\LoginController@login')->name('login');
 Route::get('register/cevent','Auth\RegisterController@showRegistrationForm')->name('register.cevent');
@@ -29,21 +33,31 @@ Route::post('register/oner','Auth\RegisterOnerController@register')->name('regis
 Route::get('register','Auth\RegisterClientController@showRegistrationForm')->name('register.client');
 Route::post('register','Auth\RegisterClientController@register')->name('register.client');
 Route::any('logout','Auth\LoginController@logout')->name('logout');
-Route::resource('oner',"OnerController");
+Route::get('/redirect/{service}', 'SocialController@redirect');
+
+Route::get('/callback/{service}', 'SocialController@callback');
+
+// --------------Route Public
 Route::get('/', 'HomeController@index')->name('welcome');
 Route::get('/speaker', 'HomeController@speaker')->name('speaker');
-Route::get('/pay', 'HomeController@pay')->name('pay');
+Route::get('/Contact',"HomeController@contact")->name('contact');
+Route::post('/Contactsend',"HomeController@store")->name('contactsend');
+
+
+// -------------Route for CLient or creator Event or owner space "Verified email"
+
+Route::group(['middleware'=>'verified'],function () {
+
+Route::get('/pay/{bookt}', 'HomeController@pay')->name('pay');
 Route::resource('booking',"BookController");
 Route::resource('Clientsatuts',"clientController");
 Route::resource('bookingticket',"BookingtController");
 Route::resource('CreatorEvents',"CeventController");
 Route::resource('CreatorEvents/Events',"EventController");
-Route::get('/Contact',"HomeController@contact")->name('contact');
-Route::post('/Contactsend',"HomeController@store")->name('contactsend');
-Route::get('/search', 'HomeController@search')->name('search');
-
-
+Route::get('/home', 'HomeController@pagehome')->name('pagehome');
+Route::resource('oner',"OnerController");
 Route::post('/CEVENT/approve/{bookt}	','bookingtController@approve')->name('approve-book');
 Route::post('/Owner/approve/{book}	','bookController@approve')->name('approve-booko');
-
-
+Route::get('/search', 'HomeController@search')->name('search');
+});
+});

@@ -9,6 +9,7 @@ use App\Models\Event;
 use App\Models\Bookt;
 use App\Models\Book;
 use App\Models\Oner;
+use App\Http\Requests\CreatoreventValidation;
 
 
 use Illuminate\Support\Facades\DB;
@@ -97,19 +98,19 @@ class CeventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreatoreventValidation $request, $id)
     { 
       
         $cevent= Cevent::find($id);
         if(!empty($cevent->id)){
             
-            $request->validate([
+            // $request->validate([
                 
-                'email' => "required|email|min:5|max:100|unique:cevents,id,".$cevent->id,
-                'phone' => "required|numeric|min:7",
-                'adress' => "required",
-                'picture' => "nullable|mimes:jpg,jpeg,png|image|max:2048"
-            ]);
+            //     'email' => "required|email|min:5|max:100|unique:cevents,id,".$cevent->id,
+            //     'phone' => "required|numeric|min:7",
+            //     'adress' => "required",
+            //     'picture' => "nullable|mimes:jpg,jpeg,png|image|max:2048"
+            // ]);
             if(!empty($request->file('picture'))){
                 $path = Storage::putFile('public',$request->file('picture'));
                 $url = Storage::url($path);
@@ -127,7 +128,7 @@ class CeventController extends Controller
             $user->save();
         }
       
-        return redirect()->back();
+        return redirect()->back()->with('message','Creator events Update informations Successfully');
     }
 
     /**

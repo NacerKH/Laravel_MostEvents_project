@@ -28,7 +28,7 @@ class RegisterClientController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';//RouteServiceProvider::HOME;
+    protected $redirectTo = '/home';//RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -46,12 +46,12 @@ class RegisterClientController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator(array $data) //best paractice to use validation outside this u can make php artisan make:request usevalidation 
     {
         return Validator::make($data, [
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'min:8'],
+            'phone' => ['required', 'min:8','unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);

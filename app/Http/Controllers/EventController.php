@@ -7,6 +7,10 @@ use App\Models\Event;
 use Storage;
 use App\Models\Cevent;
 
+use App\Http\Requests\EventValidation;
+
+
+
 class EventController extends Controller
 {
     /**
@@ -35,18 +39,18 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EventValidation $request)
     {
         if (!empty(auth()->user()->haveEvent())){
             $event_id = auth()->user()->cevent()->id;
-            $request->validate([
-                'picture' => 'image|mimes:jpeg,png,jpg|max:2048',
-                "name" => "required|string|min:5|max:100",
-                "price" => "required|integer|max:100",
-                'date' => "required|after_or_equal:now",
-                'from' => "nullable|before:to",
-                 'to' => "nullable|after:from"
-           ]);
+        //     $request->validate([
+        //         'picture' => 'image|mimes:jpeg,png,jpg|max:2048',
+        //         "name" => "required|string|min:5|max:100",
+        //         "price" => "required|integer|max:100",
+        //         'date' => "required|after_or_equal:now",
+        //         'from' => "nullable|before:to",
+        //          'to' => "nullable|after:from"
+        //    ]);
             $url = '';
             $event = new Event();
             if (!empty($request->file('picture'))){
@@ -67,7 +71,7 @@ class EventController extends Controller
             $event->event_id = $event_id;
             $event->save();
            
-            return redirect()->route('CreatorEvents.show',$event_id)->with('success','Item created successfully!');
+            return redirect()->route('CreatorEvents.show',$event_id)->with('message','Data added Successfully');
        }
     //    return redirect()->back();
     
@@ -134,7 +138,7 @@ class EventController extends Controller
         $event->description = (!empty($request->description))?$request->description:"";
         $event->save();
       
-        return redirect()->route('CreatorEvents.show',$event->event_id)->with('success',"Event Was updated successful");
+        return redirect()->route('CreatorEvents.show',$event->event_id)->with('message',"Event Was updated successful");
     }
 
     /**
@@ -148,6 +152,6 @@ class EventController extends Controller
         $event_id = auth()->user()->cevent()->id;
         $event = Event::find($id);
         $event->delete();
-        return redirect()->route('CreatorEvents',$event_id);
+        return redirect()->route('CreatorEvents',$event_id)->with('message','Data deleted Successfully');;
     }
 }

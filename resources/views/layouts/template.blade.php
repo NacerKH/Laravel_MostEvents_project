@@ -13,16 +13,15 @@
     <!-- ========== Favicon Ico ========== -->
     <!--<link rel="icon" href="fav.ico">-->
     <!-- ========== STYLESHEETS ========== -->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 
-    <link rel="stylesheet" href="{{asset('assets/css/toastr.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    {{-- <link rel="stylesheet" href="{{asset('assets/css/toastr.min.css')}}"> --}}
+    {{-- <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" /> --}}
     <link href="{{asset('assets/admin/demo/demo.css')}}" rel="stylesheet" />
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"
-  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-  crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" ></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" ></script>
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" ></script> 
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" ></script>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
    
   <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -40,66 +39,19 @@
 </head>
 
 <body>
-<div class="loader">
+{{-- <div class="loader">
     <div class="loader-outter"></div>
     <div class="loader-inner"></div>
-</div>
+</div> --}}
 <!--header start here -->
-<header class="header navbar fixed-top navbar-expand-md">
-    <div class="container">
-        <a class="navbar-brand logo" href="/">
-            <img src="{{asset('assets/img/logo.png')}}" alt="MostEvent"/>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#headernav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="lnr lnr-text-align-right"></span>
-        </button>
-        <div class="collapse navbar-collapse flex-sm-row-reverse" id="headernav">
-            <ul class=" nav navbar-nav menu">
-                <li class="nav-item">
-                    <a class="nav-link active" href="{{route('welcome')}}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="{{route('speaker')}}">Speakers</a>
-                </li>
-               <li class="nav-item">
-                    <a class="nav-link " href="{{route('contact')}}">Contact</a>
-                </li>
-             
-              
-             <ul class="navbar-nav ml-5">
-                @auth
-                  <li class="nav-item"><a class="nav-link" href="{{route('Clientsatuts.edit',auth()->user()->id)}}">{{auth()->user()->fullname()}} </a></li>
-                  @if(auth()->user()->haveEvent())
-                    <li class="nav-item"><a class="nav-link" href="{{route('CreatorEvents.show',auth()->user()->cevent()->id)}}">Manage</a></li>
-                    @endif
-                    @if(auth()->user()->haveOner())
-                    <li class="nav-item"><a class="nav-link" href="{{route('oner.show',auth()->user()->oner()->id)}}">Manage</a></li>
-                    @endif
-                    @if(auth()->user()->role === "user")
-                    <li class="nav-item"><a class="nav-link" href="{{route('Clientsatuts.show',auth()->user()->client()->id)}}">Status booking</a></li>
-                    @endif
-                    <li class="nav-item"><a class="nav-link" href="{{route('logout')}}">logout</a></li>
-                @else
-                    <li class="nav-item"><a class="nav-link" href="{{route('login')}}">login</a></li>
-                    @endauth
-                </ul>
 
-                <li class="search_btn">
-                    <a  href="{{route('search')}}">
-                       <i class="ion-ios-search"></i>
-                    </a>
-                </li>
-                
-            </ul>
-            </ul>
-        </div>
-    </div>
-    </header>
 <body>
-@include('flash-message')
+@include('includes.header')
+@include('includes.flash-message')
+{{-- // i use two method for alert this is a simple bootstrap alert and  toastr notification jquery, toastr CSS and toastr js --}}
             @yield('content')
             
-            @yield('js')
+        
      
 <!--get tickets section end-->
 
@@ -112,9 +64,9 @@
               
 
 <!--footer end -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+{{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-  crossorigin="anonymous"></script>
+  crossorigin="anonymous"></script> --}}
 
 
 <script src="{{asset('assets/js/jquery.min.js')}}"></script>
@@ -312,12 +264,50 @@
 
     });
   </script>
-  <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
-  {!! Toastr::message() !!}
-<!--map -->
+  {{-- <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+  {!! Toastr::message() !!} --}}
+{{-- <!--map -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuahgsm_qfH1F3iywCKzZNMdgsCfnjuUA"></script>
 <link rel=stylesheet href=https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css>
-<script src=https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js></script>
+<script src=https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js></script> --}}
 <!-- Custom js -->
 </body>
+<script>
+  @if(Session::has('message'))
+  toastr.options =
+  {
+  	"closeButton" : true,
+  	"progressBar" : true
+  }
+  		toastr.success("{{ session('message') }}");
+  @endif
+
+  @if(Session::has('error'))
+  toastr.options =
+  {
+  	"closeButton" : true,
+  	"progressBar" : true
+  }
+  		toastr.error("{{ session('error') }}");
+  @endif
+
+  @if(Session::has('info'))
+  toastr.options =
+  {
+  	"closeButton" : true,
+  	"progressBar" : true
+  }
+  		toastr.info("{{ session('info') }}");
+  @endif
+
+  @if(Session::has('warning'))
+  toastr.options =
+  {
+  	"closeButton" : true,
+  	"progressBar" : true
+  }
+  		toastr.warning("{{ session('warning') }}");
+  @endif
+</script>
+
 </html>
