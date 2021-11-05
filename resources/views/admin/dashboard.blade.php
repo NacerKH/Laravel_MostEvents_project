@@ -60,6 +60,18 @@
       </div>
     </div>
   </div>
+  <div class="col-lg-4 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-header card-header-danger card-header-icon">
+        <div class="card-icon">
+          <i class="material-icons">preview</i>
+        </div>
+        <p class="card-category">Visitors Videos of events</p>
+        <h3 class="card-title">{{$viewers->viewers}}</h3>
+      </div>
+    </div>
+  </div>
+</div>
   
   <div class="row">
     <div class="col-lg-6 col-md-12">

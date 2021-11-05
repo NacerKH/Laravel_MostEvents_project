@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\Event;
 use App\Models\Cevent;
 use App\Mail\Contact;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,8 +21,8 @@ use App\Mail\Contact;
 
 
 Auth::routes(['verify'=>true]);
-// -----------------Route for auth
-Route::group(['prefix' => LaravelLocalization::setLocale(), 
+// // -----------------Route for auth
+Route::group(['prefix' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::setLocale(), 
 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
 ], function(){
 Route::get('login','Auth\LoginController@showLoginForm')->name('login');
@@ -37,7 +38,7 @@ Route::get('/redirect/{service}', 'SocialController@redirect');
 
 Route::get('/callback/{service}', 'SocialController@callback');
 
-// --------------Route Public
+// // --------------Route Public
 Route::get('/', 'HomeController@index')->name('welcome');
 Route::get('/SomeVideoOfEvents', 'ViewerController@getvedios')->name('watch');
 Route::get('/speaker', 'HomeController@speaker')->name('speaker');  
@@ -45,7 +46,7 @@ Route::get('/Contact',"HomeController@contact")->name('contact');
 Route::post('/Contactsend',"HomeController@store")->name('contactsend');
 
 
-// -------------Route for CLient or creator Event or owner space "Verified email"
+// // // -------------Route for CLient or creator Event or owner space "Verified email"
 
 Route::group(['middleware'=>'verified'],function () {
 

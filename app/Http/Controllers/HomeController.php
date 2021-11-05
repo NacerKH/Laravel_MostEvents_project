@@ -1,17 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 
 use App\Models\Oner;
-use App\Models\Cevent;
 use App\Models\User;
 use App\Models\Event;
-use Illuminate\Support\Facades\DB;
-use App\Http\Requests\ContactRequest;
-use Illuminate\Support\Facades\Mail;
+use App\Models\Cevent;
 use App\Mail\ContactMail;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\ContactRequest;
 
 class HomeController extends Controller
 {
@@ -33,6 +34,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // /   $date=Oner::first();
+      
+      
+   
         
         return view('welcome');
     }

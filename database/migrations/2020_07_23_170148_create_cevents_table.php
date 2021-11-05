@@ -19,6 +19,9 @@ class CreateCeventsTable extends Migration
             $table->string('picture')->default('');
             $table->integer('ticket')->default(10);
             $table->boolean('active')->default(true);
+            $table->boolean('expire')->default(false);
+            $table->date('subscription_end_date');
+
             
             $table->unsignedBigInteger('cevent_id');
             $table->foreign('cevent_id')

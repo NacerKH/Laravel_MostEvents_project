@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Cevent;
-use App\Models\Event;
-use App\Models\Bookt;
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 use App\Models\Book;
 use App\Models\Oner;
-use App\Http\Requests\CreatoreventValidation;
+use App\Models\User;
+use App\Models\Bookt;
+use App\Models\Event;
+use App\Models\Cevent;
 
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CreatoreventValidation;
 
 class CeventController extends Controller
 {
@@ -117,6 +118,7 @@ class CeventController extends Controller
                 $cevent->picture = $url;
             }
             $cevent->ticket = $request->ticket;
+            $cevent->subscription_end_date = Carbon::createFromFormat('Y-m-d H:i:s', now())->addMonths(1)->toDateString();
             
             $cevent->save();
             $user = User::find(auth()->id());

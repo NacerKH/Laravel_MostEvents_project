@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 use App\Models\Oner;
-use Illuminate\Support\Facades\DB;
-use Storage;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\OwnerValidation;
+
 class OnerController extends Controller
 {
     /**
@@ -95,6 +97,7 @@ class OnerController extends Controller
             }
             $oner->name = $request->name;
             $oner->places = $request->places;
+             $oner->subscription_end_date = Carbon::createFromFormat('Y-m-d H:i:s', now())->addMonths(1)->toDateString();
             
             $oner->save();
             $user = User::find(auth()->id());

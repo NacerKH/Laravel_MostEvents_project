@@ -16,7 +16,7 @@ class CreateViewersTable extends Migration
         Schema::create('viewers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('viewers');
+            $table->integer('viewers')->default(1);
             $table->timestamps();
         });
     }

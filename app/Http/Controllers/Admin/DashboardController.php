@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Oner;
 use App\Models\User;
-use App\Models\Cevent;
 use App\Models\bookt;
-use App\Http\Controllers\Controller;
+use App\Models\Cevent;
+use App\Models\Viewer;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
@@ -24,10 +25,12 @@ class DashboardController extends Controller
         $clientsCount =((int)$usersCount- (int)$onerCount - (int)$ceventCount- 1);
         $reservationac = Bookt::where('validate',1)->count();;
         $reservationre = Bookt::where('validate',0)->count();;
+        $viewers= Viewer::first();
+        // dd($viewers->viewers);
             
        
        
-        return view('admin.dashboard' , compact('clientsCount' , 'onerCount' ,'ceventCount','reservationac','reservationre'));
+        return view('admin.dashboard' , compact('clientsCount' , 'onerCount' ,'ceventCount','reservationac','reservationre','viewers'));
       }
         /**
      * Display a listing of the resource.

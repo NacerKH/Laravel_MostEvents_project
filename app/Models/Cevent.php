@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Cevent extends Model
 {
     protected $fillable = [
-         'cevent_id','picture','active'
+         'cevent_id','picture','active','expire'
     ];
     
     

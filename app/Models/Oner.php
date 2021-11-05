@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Oner extends Model
 {
     protected $fillable = [
-        'name', 'user_id', 'active','logo'
+        'name', 'user_id', 'active','logo','expire','subscription_end_date'
     ];
     
     public function user()

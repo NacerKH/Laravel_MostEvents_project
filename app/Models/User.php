@@ -1,18 +1,19 @@
 <?php
 
 namespace App\Models;
-use Illuminate\Support\Facades\DB;
 use App\Models\Oner;
-use App\Models\Cevent;
 use App\Models\Event;
+use App\Models\Cevent;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Auth;
+use Rappasoft\LaravelAuthenticationLog\Traits\AuthenticationLoggable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable;
+    use Notifiable, AuthenticationLoggable;
 
     /**
      * The attributes that are mass assignable.

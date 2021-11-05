@@ -17,6 +17,9 @@ class CreateOnersTable extends Migration
             $table->id();
             $table->string('name');
             $table->boolean('active')->default(true);
+            $table->integer('expire')->default(0);
+            $table->date('subscription_end_date');
+
             $table->string('logo')->default('');
             $table->integer('places')->default(10);
             $table->unsignedBigInteger('user_id');
