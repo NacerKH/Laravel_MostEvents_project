@@ -6,6 +6,8 @@
     <div class="jumbotron-background">
         <img src="{{asset('assets/img/events/ccc.jpg')}}" class="blur " width="100%" height="100%"  >
     </div>
+ 
+    
 
 <div class="container-fluid">
     <div class="row mt-5">
@@ -15,7 +17,11 @@
 
                     <h4 class="card-title float-left mt-2">Status booking</h4>
                    
+                        
+                   
+                   
                 </div>
+                @if (count($bookts) >= 1)
                 <div class="card-body table-responsive">
                     <table class="table table-hover">
                         <thead class="text-warning">
@@ -34,9 +40,14 @@
                         <tbody>
 
 
-                        
-                            <tr>
+                           
+                         <tr>
                             @foreach($bookts as $bookt)
+                           
+                                
+                            
+                                
+                         
                                 <td>{{$bookt->id}}</td>
                                 <td>
 
@@ -64,16 +75,26 @@
                                    </td>
 
                                   
-                               
+                              
                            
                         </tbody>
                         @endforeach
+                        
+                        
                     </table>
+                    @else
+                    <div class="card-body table-responsive">
+                    <p class="text-center fw-bolder ">there is no reservation to show</p>
+                    </div>
+                      
+                        @endif
                     {{ $bookts->links()}}
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 
 @stop

@@ -40,7 +40,11 @@ return [
     "Statusbooking" =>'Status booking',
     "Manage" => 'Manage',
     "Language"=> 'Language',
-    "firstnamesize"=>"must be 8 caractere"
+    "firstnamesize"=>"must be 8 caractere",
+    "after_or_equal_now"=> "date must be today or after to day",
+    "integer_price"=>"the price must be integer",
+    "unique"=>"email was used with other User",
+    "digits"=>"phone must be a 8 digit "
 
 
  ];

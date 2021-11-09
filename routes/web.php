@@ -51,10 +51,14 @@ Route::post('/Contactsend',"HomeController@store")->name('contactsend');
 Route::group(['middleware'=>'verified'],function () {
 
 Route::get('/pay/{bookt}', 'HomeController@pay')->name('pay');
-Route::resource('booking',"BookController");
+Route::resource('booking','BookController',['except' => ['destroy']]);
+Route::post('/oner/delete', 'BookController@destroy')->name('book.delete');
+
 Route::resource('Clientsatuts',"clientController");
 Route::resource('bookingticket',"BookingtController");
-Route::resource('CreatorEvents',"CeventController");
+Route::resource('CreatorEvents','CeventController');
+ Route::post('CreatorEvents/update', 'CeventController@update')->name('cevent.update');
+Route::post('delete', 'EventController@destroy')->name('Event.delete');
 Route::resource('CreatorEvents/Events',"EventController");
 Route::get('/home', 'HomeController@pagehome')->name('pagehome');
 Route::resource('oner',"OnerController");

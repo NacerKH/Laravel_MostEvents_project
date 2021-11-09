@@ -81,6 +81,12 @@ class OnerController extends Controller
     {
       
         $oner= Oner::find($id);
+        if (!$oner)
+        return response()->json([
+            'status' => false,
+            'msg' => 'هذ العرض غير موجود',
+        ]);
+
         if(!empty($oner->id)){
             
             // $request->validate([
@@ -105,6 +111,10 @@ class OnerController extends Controller
             $user->adress = $request->adress;
             $user->phone = $request->phone;
             $user->save();
+              return response()->json([
+                'status' => true,
+                'msg' => 'تم  التحديث بنجاح',
+            ]);
         }
       
         return redirect()->back()->with('message','Data Update Successfully');

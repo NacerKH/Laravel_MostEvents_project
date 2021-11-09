@@ -124,7 +124,7 @@ style="width: 75%;"></div>
 <div class="col-md-3 col-sm-6">
 <div class="speaker_box">
 <div class="speaker_img">
-<img src="assets/img/speakers/s1.jpg" alt="speaker name">
+<img src="{{asset('assets/img/speakers/s1.jpg')}}" alt="speaker name">
 <div class="info_box">
 <h5 class="name">Radi Redstar</h5>
 <p class="position">CEO Company</p>
@@ -152,7 +152,7 @@ Curabitur a pulvinar nunc. Maecenas laoreet finibus lectus, at volutpat ligula e
 <div class="col-md-3 col-sm-6">
 <div class="speaker_box">
 <div class="speaker_img">
-<img src="assets/img/speakers/s2.jpg" alt="speaker name">
+<img src="{{asset('assets/img/speakers/s2.jpg')}}" alt="speaker name">
 <div class="info_box">
 <h5 class="name">Miss M (Queen)</h5>
 <p class="position">CEO Company</p>
@@ -181,7 +181,7 @@ Curabitur a pulvinar nunc. Maecenas laoreet finibus lectus, at volutpat ligula e
 <div class="col-md-3 col-sm-6">
 <div class="speaker_box">
 <div class="speaker_img">
-<img src="assets/img/speakers/s3.jpg" alt="speaker name">
+<img src="{{asset('assets/img/speakers/s3.jpg')}}" alt="speaker name">
 <div class="info_box">
 <h5 class="name">Nader guirat</h5>
 <p class="position">CEO Company</p>
@@ -209,7 +209,7 @@ Curabitur a pulvinar nunc. Maecenas laoreet finibus lectus, at volutpat ligula e
 <div class="col-md-3 col-sm-6">
 <div class="speaker_box">
 <div class="speaker_img">
-<img src="assets/img/speakers/s4.jpg" alt="speaker name">
+<img src="{{asset('assets/img/speakers/s4.jpg')}}" alt="speaker name">
 <div class="info_box">
 <h5 class="name">Sanfara</h5>
 <p class="position">CEO Company</p>
@@ -237,7 +237,7 @@ Curabitur a pulvinar nunc. Maecenas laoreet finibus lectus, at volutpat ligula e
 <div class="col-md-3 col-sm-6">
 <div class="speaker_box">
 <div class="speaker_img">
-<img src="assets/img/speakers/s5.jpg" alt="speaker name">
+<img src="{{asset('assets/img/speakers/s5.jpg')}}" alt="speaker name">
 <div class="info_box">
 <h5 class="name">Gati</h5>
 <p class="position">CEO Company</p>
@@ -265,7 +265,7 @@ Curabitur a pulvinar nunc. Maecenas laoreet finibus lectus, at volutpat ligula e
 <div class="col-md-3 col-sm-6">
 <div class="speaker_box">
 <div class="speaker_img">
-<img src="assets/img/speakers/s6.jpg" alt="speaker name">
+<img src="{{asset('assets/img/speakers/s6.jpg')}}" alt="speaker name">
 <div class="info_box">
 <h5 class="name">A.L.A</h5>
 <p class="position">CEO Company</p>
@@ -293,7 +293,7 @@ Curabitur a pulvinar nunc. Maecenas laoreet finibus lectus, at volutpat ligula e
 <div class="col-md-3 col-sm-6">
 <div class="speaker_box">
 <div class="speaker_img">
-<img src="assets/img/speakers/s7.jpg" alt="speaker name">
+<img src="{{asset('assets/img/speakers/s7.jpg')}}" alt="speaker name">
 <div class="info_box">
 <h5 class="name">Fahmi Riahi</h5>
 <p class="position">CEO Company</p>
@@ -321,7 +321,7 @@ Curabitur a pulvinar nunc. Maecenas laoreet finibus lectus, at volutpat ligula e
 <div class="col-md-3 col-sm-6">
 <div class="speaker_box">
 <div class="speaker_img">
-<img src="assets/img/speakers/s8.jpg" alt="speaker name">
+<img src="{{asset('assets/img/speakers/s8.jpg')}}" alt="speaker name">
 <div class="info_box">
 <h5 class="name">Sabri Mefteh</h5>
 <p class="position">CEO Company</p>
@@ -352,16 +352,17 @@ Curabitur a pulvinar nunc. Maecenas laoreet finibus lectus, at volutpat ligula e
 
 
 <!--event countdown-->
-<section class="bg-gray pt100 pb100">
-<div class="container">
-<div class="row justify-content-center">
-<div class="col-12 col-md-10">
-<h4 class="mb30 text-center">Counter until the big event</h4>
-<div class="countdown"></div>
-</div>
-</div>
-</div>
-</section>
+<section class="bg-img pt70 pb70" style="background-image: url(asset('assets/img/bg/bg-img.png');">
+    <div class="overlay_dark"></div>
+    <div class="container">
+    <div class="row justify-content-center">
+    <div class="col-12 col-md-10">
+    <h4 class="mb30 text-center color-light">Counter until the big event</h4>
+    <div class="countdown"></div>
+    </div>
+    </div>
+    </div>
+    </section>
 <!--evernt countdown end-->
 
 <!--get tickets section -->
@@ -394,7 +395,7 @@ iaculis in aazzzCurabitur a pulvinar nunc. Maecenas laoreet finibus lectus, at v
 <div class="footer_box">
 <div class="footer_header">
 <div class="footer_logo">
-<img src="assets/img/logo.png" alt="evento">
+<img src="{{asset('assets/img/logo.png')}}" alt="evento">
 </div>
 </div>
 <div class="footer_box_body">
@@ -435,32 +436,32 @@ instagram
 <ul class="instagram_list">
 <li>
 <a href="#">
-<img src="assets/img/cleander/c1.png" alt="instagram">
+<img src="{{asset('assets/img/cleander/c1.png')}}" alt="instagram">
 </a>
 </li>
 <li>
 <a href="#">
-<img src="assets/img/cleander/c2.png" alt="instagram">
+<img src="{{asset('assets/img/cleander/c2.png')}}" alt="instagram">
 </a>
 </li>
 <li>
 <a href="#">
-<img src="assets/img/cleander/c3.png" alt="instagram">
+<img src="{{asset('assets/img/cleander/c3.png')}}" alt="instagram">
 </a>
 </li>
 <li>
 <a href="#">
-<img src="assets/img/cleander/c3.png" alt="instagram">
+<img src="{{asset('assets/img/cleander/c3.png')}}" alt="instagram">
 </a>
 </li>
 <li>
 <a href="#">
-<img src="assets/img/cleander/c2.png" alt="instagram">
+<img src="{{asset('assets/img/cleander/c2.png')}}" alt="instagram">
 </a>
 </li>
 <li>
 <a href="#">
-<img src="assets/img/cleander/c1.png" alt="instagram">
+<img src="{{asset('assets/img/cleander/c1.png')}}" alt="instagram">
 </a>
 </li>
 </ul>

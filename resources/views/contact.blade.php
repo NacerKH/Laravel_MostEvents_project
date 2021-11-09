@@ -30,7 +30,7 @@
 
 
 <!--contact section -->
-<form action="{{route('contactsend')}}" method="post">
+<form action="" id="sendEmailform" method="post">
             @csrf
 <section class="pt100 pb100">
     <div class="container">
@@ -110,7 +110,7 @@
                         <textarea id="message" name="message" class="form-control" cols="4" rows="4" placeholder="massage"><  </textarea>
                     </div>
                     <div class="form-group text-right">
-                        <button type="submit" class="btn btn-rounded btn-primary">send massage</button>
+                        <button id="send_email" class="btn btn-rounded btn-primary">send massage</button>
                     </div>
                 </div>
             </div>
@@ -129,3 +129,38 @@
 </form>
 
 @endsection
+@section('scripts')
+    <script>
+        $(document).on('click', '#send_email', function (e) {
+            e.preventDefault();
+            var formData = new FormData($('#sendEmailform')[0]);
+            $.ajax({
+                type: 'post',
+                enctype: 'multipart/form-data',
+                url: "{{route('contactsend')}}",
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function (data) {
+                    if(data.status == true){
+                       
+                        // $('#success_msg').show();
+                        toastr.options = {
+                            "closeButton": true,
+                            "progressBar": true
+                        }
+                        toastr.success("thank you We will answer in your email  😇 ");
+                        $('#sendEmailform')[0].reset();
+                    }
+                }, error: function (reject) {
+                    var response = $.parseJSON(reject.responseText);
+                    $.each(response.errors, function(key, val) {
+                        $("#" + key + "_error").text(val[0]);
+                    });
+                    }
+              
+            });
+        });
+    </script>
+@stop

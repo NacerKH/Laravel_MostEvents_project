@@ -2,7 +2,7 @@
 @section ('content')
 <br><br><br><br><br>
 <div class="container mt-5">
-<form action="{{ route('oner.update',$oner->id) }}" method="POST" enctype="multipart/form-data" class="row">
+<form action="" id="ownertFormUpdate" method="POST" enctype="multipart/form-data" class="row">
 
 @csrf
 @method('PUT')
@@ -64,10 +64,44 @@
             @enderror
         </div>
       <div class="form-group float-right">
-            <button type="submit" class="btn btn-outline-primary" >Update </button>
+            <button id="update_owner" class="btn btn-outline-primary" >Update </button>
         </div>
     </div>
 
 </form>
 </div>
 @endsection
+@section('scripts')
+<script>
+    $(document).on('click', '#update_owner', function (e) {
+        e.preventDefault();
+        var formData = new FormData($('#ownertFormUpdate')[0]);
+        $.ajax({
+            type: 'post',
+            enctype: 'multipart/form-data',
+            url: "{{ route('oner.update',$oner->id) }}",
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (data) {
+                if(data.status == true){
+                    
+                    // $('#success_msg').show();
+                    toastr.options = {
+                        "closeButton": true,
+                        "progressBar": true
+                    }
+                    toastr.success("Creator Events update Profil successfully");
+                }
+            }, error: function (reject) {
+                var response = $.parseJSON(reject.responseText);
+                $.each(response.errors, function(key, val) {
+                    $("#" + key + "_error").text(val[0]);
+                });
+                }
+          
+        });
+    });
+</script>
+@stop

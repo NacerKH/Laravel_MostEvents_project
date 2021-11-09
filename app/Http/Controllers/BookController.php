@@ -114,11 +114,16 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         $oner_id = auth()->user()->oner()->id;
-        $booking = Book::find($id);
+        $booking = Book::find($request->id);
         $booking->delete();
+        return response()->json([
+            'status' => true,
+            'msg' => 'تم الحذف بنجاح',
+            'id' =>  $request -> id
+        ]);
         return redirect()->route('oner.show',$oner_id)->with('message','Reservation deleted Successfully');;
     }
 }

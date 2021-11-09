@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Cevent;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -30,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo ='/home';// RouteServiceProvider::HOME;
+    protected $redirectTo = '/home'; // RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -53,14 +54,16 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'min:8','unique:users'],
+            'phone' => ['required', 'min:8', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
-    public function showRegistrationForm(){
+    public function showRegistrationForm()
+    {
 
-        return view('auth.register-cevent');}
+        return view('auth.register-cevent');
+    }
 
     /**
      * Create a new user instance after a valid registration.
@@ -77,14 +80,15 @@ class RegisterController extends Controller
             'role' => 'cevent',
             'phone' => $data['phone'],
             'adress' => $data['adress'],
-            'gender' => ($data['gender']=='men')?true:false,
+            'gender' => ($data['gender'] == 'men') ? true : false,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
         Cevent::create([
-         'cevent_id' => $user->id,
-         'active' => true,
-                        ]);
-         return $user; 
-        }
+            'cevent_id' => $user->id,
+            'subscription_end_date' => Carbon::createFromFormat('Y-m-d H:i:s', now())->addMonths(1)->toDateString(),
+             'active' => true,
+        ]);
+        return $user;
     }
+}

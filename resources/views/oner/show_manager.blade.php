@@ -1,6 +1,8 @@
 @extends('layouts.template')
 
 @section('content')
+<br><br><br>
+
 <div class="container">
 
     <div class="row bg-light mt-5">
@@ -32,7 +34,9 @@
          
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade active show" id="v-pills-reserve" role="tabpanel" aria-labelledby="v-pills-reserve-tab"> 
-                     <table class="table table-sm table-hover">
+                     
+                    @if (count($oner->booking()) >= 1)
+                    <table class="table table-sm table-hover">
                         <thead>
                             <tr>
                             <th scope="col"></th>
@@ -48,7 +52,7 @@
                         <tbody>
                           
                           @foreach($oner->booking() as $item)
-                            <tr>
+                            <tr class="eventRow{{ $item->id }}">
                         
                             <th scope="row">{{$item->id}}</th>
                             <td>{{$item->managerFullName()}}</td>
@@ -72,10 +76,10 @@
                                                                 </button>
                                                                 
                                                 @endif 
-                                 <form action="{{ route('booking.destroy',[ $item->id])}}" method="POST">
+                                 <form action="" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
-                                         <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                         <button  Cevent_id="{{ $item->id }}" class="delete_btn btn-sm btn-danger">Delete</button>
                                  </form> 
                                  </div>
                             </td>
@@ -83,6 +87,11 @@
                             @endforeach
                         </tbody>
                         </table>
+                        @else
+                        <div class="card-body table-responsive">
+                            <p class="text-center fw-bolder ">NO reservation to show  </p>
+                        </div>
+                    @endif
                      </div>
                      </div>
                 
@@ -96,3 +105,34 @@
 
 
 @endsection
+@section('scripts')
+<script>
+    $(document).on('click', '.delete_btn', function(e) {
+        e.preventDefault();
+        var Cevent_id = $(this).attr('Cevent_id');
+        $.ajax({
+            type: 'post',
+            url: "{{ route('book.delete')}}",
+            data: {
+                '_token': "{{ csrf_token() }}",
+                'id': Cevent_id
+            },
+            success: function(data) {
+                if (data.status == true) {
+                    // $('#success_msg').show();
+
+
+
+                }
+                $('.eventRow' + data.id).remove();
+                toastr.options = {
+                    "closeButton": true,
+                    "progressBar": true
+                }
+                toastr.success("Events Added successfully");
+            },
+            error: function(reject) {}
+        });
+    });
+</script>
+@stop

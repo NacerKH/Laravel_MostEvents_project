@@ -30,7 +30,7 @@
         <div class="form-group">
                         <label for="date">date</label>
 
-                        <input type="date" name="date" class="form-control @error('date') is-invalid @enderror">
+                        <input type="date" name="date" class="form-control" @error('date') is-invalid @enderror" value="{{$event->date}}">
                         @error('date')
                         <span class="invalid-feedback @error('from') is-invalid @enderror" role="alert">
                             <strong>{{ $message }}</strong>
@@ -46,7 +46,7 @@
                     <div class="form-group form-row " id="group_time">
                         <div class="col">
 
-                            <input class="form-control @error('from') is-invalid @enderror" type="time" name="from" placeholder="heure d'arrive">
+                            <input class="form-control @error('from') is-invalid @enderror" type="time" name="from" value="{{$event->from}} placeholder="heure d'arrive">
                             @error('from')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }} </strong>
@@ -54,7 +54,7 @@
                             @enderror
                         </div>
                         <div class="col">
-                            <input class="form-control @error('to') is-invalid @enderror" type="time" name="to" placeholder="heure de sortie">
+                            <input class="form-control @error('to') is-invalid @enderror" type="time" name="to" value="{{$event->to}} placeholder="heure de sortie">
                             @error('to')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

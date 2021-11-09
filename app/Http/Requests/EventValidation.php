@@ -32,4 +32,20 @@ class EventValidation extends FormRequest
              'to' => "nullable|after:from"
        ];
     }
+    public function messages()
+    {
+
+        return [
+            'date.after_or_equal' => __('messages.after_or_equal_now'),
+            'date.required' => __('messages.required'),
+            'from.before' => __('messages.before_to'),
+            'to.after'=> __('messages.after_from'),
+            'price.required'=> __('messages.required'),
+            'price.integer'=> __('messages.integer_price'),
+            'price.max'=> __('messages.max'),
+
+          
+
+        ];
+    }
 }

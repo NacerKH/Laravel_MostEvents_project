@@ -8,17 +8,17 @@
                 <div class="card-header"> Your Profil </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{route('Clientsatuts.update',$users->id)}}"  enctype="multipart/form-data">
+                    <form method="POST" id="ClientFormUpdate" action=""  enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
              <div class="col-3 p-2">
                  <img src="{{$users->avatar()}}" class="w-100 p-2">   
                      <input type="file" name="avatar"  class="form-control mt-5 @error('avatar') is-invalid @enderror" >
-                     @error('avatar')
+                     {{-- @error('avatar')
                         <span class="invalid-feedback" role="alert">
                          <strong>{{ $message }}</strong>
                         </span>
-                          @enderror
+                          @enderror --}}
 
                 </div>
 
@@ -27,13 +27,14 @@
 
                                 <div class="col-md-6">
                                     <input id="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ $users->firstname }}" required autocomplete="firstname" autofocus>
+                                      <small id="firstname_error" class="form-text text-danger"></small>
 
-                                    @error('firstname')
+                                    {{-- @error('firstname')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
                             </div>
 
                             <div class="form-group row">
@@ -41,12 +42,13 @@
 
                                 <div class="col-md-6">
                                     <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ $users->lastname }} " required autocomplete="lastname" autofocus>
-
-                                    @error('lastname')
+                                    <small id="lastname_error" class="form-text text-danger"></small>
+                                    
+                                    {{-- @error('lastname')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                    @enderror
+                                    @enderror --}}
                                 </div>
                             </div>
             
@@ -56,12 +58,13 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{$users->email}}" required autocomplete="email">
+                                <small id="email_error" class="form-text text-danger"></small>
 
-                                @error('email')
+                                {{-- @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                @enderror --}}
                             </div>
                         </div>
                         <div class="form-group row">
@@ -70,6 +73,7 @@
 
                             <div class="col-md-6">
                                 <input id="phone" type="phone" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ $users->phone}}" required autocomplete="phone">
+                            <small id="phone_error" class="form-text text-danger"></small>
 
                              
                             </div>
@@ -80,7 +84,8 @@
 
                             <div class="col-md-6">
                                 <input id="adress" type="a" class="form-control @error('adress') is-invalid @enderror" name="adress" value="{{$users->adress}}" required autocomplete="adress">
-        
+                            <small id="adress_error" class="form-text text-danger"></small>
+                                
                             
                             </div>
                         </div>
@@ -90,7 +95,7 @@
     
                         
                            
-                                <button type="submit" class="btn btn-primary " style="float: right;" >
+                                <button  id="update_client" class="btn btn-primary " style="float: right;" >
                                     Save
                                 </button>
                            
@@ -102,3 +107,37 @@
     </div>
 </div>
 @endsection
+@section('scripts')
+    <script>
+        $(document).on('click', '#update_client', function (e) {
+            e.preventDefault();
+            var formData = new FormData($('#ClientFormUpdate')[0]);
+            $.ajax({
+                type: 'post',
+                enctype: 'multipart/form-data',
+                url: "{{route('Clientsatuts.update',$users->id)}}",
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function (data) {
+                    if(data.status == true){
+                        
+                        // $('#success_msg').show();
+                        toastr.options = {
+                            "closeButton": true,
+                            "progressBar": true
+                        }
+                        toastr.success("Creator Events update Profil successfully");
+                    }
+                }, error: function (reject) {
+                    var response = $.parseJSON(reject.responseText);
+                    $.each(response.errors, function(key, val) {
+                        $("#" + key + "_error").text(val[0]);
+                    });
+                    }
+              
+            });
+        });
+    </script>
+@stop

@@ -108,6 +108,10 @@ class ClientController extends Controller
                 $user->adress = $request->adress;
                 $user->phone = $request->phone;
                 $user->save();
+                return response()->json([
+                    'status' => true,
+                    'msg' => 'تم  التحديث بنجاح',
+                ]);
             }
           
             return redirect()->back()->with('message','Data added Successfully');;

@@ -71,9 +71,21 @@ class EventController extends Controller
             $event->event_id = $event_id;
             $event->save();
            
-            return redirect()->route('CreatorEvents.show',$event_id)->with('message','Data added Successfully');
+          
+            if ($event)
+            return response()->json([
+                'status' => true,
+                'msg' => 'تم الحفظ بنجاح',
+                'id'=> $event->event_id,
+            ]);
+
+        else
+            return response()->json([
+                'status' => false,
+                'msg' => 'فشل الحفظ برجاء المحاوله مجددا',
+            ]);
        }
-    //    return redirect()->back();
+     return redirect()->back();
     
     }
 
@@ -144,14 +156,20 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         $event_id = auth()->user()->cevent()->id;
-        $event = Event::find($id);
+        $event = Event::find($request->id);
+        
         $event->delete();
+        return response()->json([
+            'status' => true,
+            'msg' => 'تم الحذف بنجاح',
+            'id' =>  $request -> id
+        ]);
+
         return redirect()->route('CreatorEvents',$event_id)->with('message','Data deleted Successfully');;
     }
 }

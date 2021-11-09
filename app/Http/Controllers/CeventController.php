@@ -60,7 +60,7 @@ class CeventController extends Controller
     public function show(User $user,$id)
     {   
         $cevent = Cevent::where('id',$id)->get()->first();
-        $event = Event::where('active',true)->get()->first();
+        $event = Event::where('active',true)->latest()->get()->first();
         $bookts= Bookt::where('id',$id)->get();
         $books= Book::where('user_id',$id)->inRandomOrder()->paginate(5);
         $oner = Oner::where('active',true)->inRandomOrder()->paginate(5);;
@@ -88,6 +88,11 @@ class CeventController extends Controller
      */
     public function edit($id)
     { $cevent = Cevent::where('id',$id)->get()->first();
+        if (!$cevent)
+            return response()->json([
+                'status' => false,
+                'msg' => 'هذ العرض غير موجود',
+            ]);
         return view('cevent.edit',compact('cevent'));
     
     }
@@ -103,6 +108,16 @@ class CeventController extends Controller
     { 
       
         $cevent= Cevent::find($id);
+        if (!$cevent)
+            return response()->json([
+                'status' => false,
+                'msg' => 'هذ العرض غير موجود',
+            ]);
+
+        //update data
+   
+
+    
         if(!empty($cevent->id)){
             
             // $request->validate([
@@ -118,7 +133,7 @@ class CeventController extends Controller
                 $cevent->picture = $url;
             }
             $cevent->ticket = $request->ticket;
-            $cevent->subscription_end_date = Carbon::createFromFormat('Y-m-d H:i:s', now())->addMonths(1)->toDateString();
+            
             
             $cevent->save();
             $user = User::find(auth()->id());
@@ -128,6 +143,10 @@ class CeventController extends Controller
             $user->adress = $request->adress;
             $user->phone = $request->phone;
             $user->save();
+            return response()->json([
+                'status' => true,
+                'msg' => 'تم  التحديث بنجاح',
+            ]);
         }
       
         return redirect()->back()->with('message','Creator events Update informations Successfully');

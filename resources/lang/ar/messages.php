@@ -40,7 +40,9 @@ return [
     "Statusbooking" =>'حالة الحجز',
     "Manage" => 'إدارة',
     "Language"=> 'اللغة',
-    "firstnamesize"=> 'الإسم لا يقل على 8 أحرف'
+    "firstnamesize"=> 'الإسم لا يقل على 8 أحرف',
+    "after_or_equal_now"=> 'التاريخ إما اليوم او بعده',
+    "digits"=>"phone must be a 8 digit "
 
 
  ];

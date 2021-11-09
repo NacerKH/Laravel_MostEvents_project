@@ -271,6 +271,11 @@
 <link rel=stylesheet href=https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css>
 <script src=https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js></script> --}}
 <!-- Custom js -->
+{{-- <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>  --}}
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>  
+
+
+@yield('scripts')
 </body>
 <script>
   @if(Session::has('message'))
@@ -309,5 +314,6 @@
   		toastr.warning("{{ session('warning') }}");
   @endif
 </script>
+
 
 </html>

@@ -44,9 +44,9 @@ class HomeController extends Controller
     public function pagehome()
     {
         if(!empty(auth()->user()->id) ){
-            $list = Oner::where('active',true)->inRandomOrder()->paginate(5);
-            $listc = Cevent::where('active',true)->inRandomOrder()->paginate(5);
-            $liste = Event::where('active',true)->inRandomOrder()->paginate(5);
+            $list = Oner::where('active',true)->orderByDesc('id')->paginate(5);
+            $listc = Cevent::where('active',true)->orderByDesc('id')->paginate(5);
+            $liste = Event::where('active',true)->orderByDesc('id')->paginate(5);
           
        return view('app.home',compact('list','listc','liste'));
         }  
@@ -69,9 +69,9 @@ class HomeController extends Controller
         
         return view('payment',compact('user'));
     }
-    public function store()
+    public function store(Request $request )
     { 
-        $data =request()->validate([
+        $request  =request()->validate([
             'subject'=>'required',
             'email'=>'required|email',
             'message' => 'required',
@@ -79,7 +79,14 @@ class HomeController extends Controller
         ]);
       
        
-          Mail::to('mednaceur199530@gmail.com')->send(new ContactMail($data));
+          Mail::to('mednaceur199530@gmail.com')->send(new ContactMail($request));
+          return response()->json([
+            'status' => true,
+            'msg' => 'تم الحفظ بنجاح',
+           
+        ]);
+
+          
 
      return  redirect()->back()->with('success', 'Votre email a été envoyer avec succees!');
     }

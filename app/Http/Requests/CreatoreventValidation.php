@@ -31,4 +31,20 @@ class CreatoreventValidation extends FormRequest
             //
         ];
     }
+    public function messages()
+    {
+
+        return [
+            'phone.unique' => __('messages.unique'),
+            'phone.required' => __('messages.required'),
+            'phone.digits' => __('messages.digits'),
+            'adress.required'=> __('messages.requied'),
+            'picture.mimes'=> __('messages.mimes'),
+            'picture.image'=> __('messages.image'),
+            'max.max'=> __('messages.max'),
+
+          
+
+        ];
+    }
 }
